@@ -95,8 +95,8 @@
 		63FA69AD2B471F4400FC9DEE /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				63FA69B12B471FC300FC9DEE /* Controller */,
 				63FA69B02B471F8400FC9DEE /* Splash */,
-				63FA69AF2B471F6C00FC9DEE /* Autorization */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -108,14 +108,6 @@
 				63FA69A02B471EEF00FC9DEE /* Assets.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		63FA69AF2B471F6C00FC9DEE /* Autorization */ = {
-			isa = PBXGroup;
-			children = (
-				63FA69B12B471FC300FC9DEE /* Controller */,
-			);
-			path = Autorization;
 			sourceTree = "<group>";
 		};
 		63FA69B02B471F8400FC9DEE /* Splash */ = {
