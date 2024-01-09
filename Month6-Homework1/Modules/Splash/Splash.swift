@@ -10,17 +10,24 @@ import UIKit
 
 class SplashController: UIViewController {
     
-    override func viewDidLoad() {
-           super.viewDidLoad()
-           
-           if let sessionDate = UserSessionManager.shared.getSession(),
-           sessionDate < Date() {
-               let vc = InfoViewController()
-               present(vc, animated: true)
-           } else {
-               let vc = UserAuthorizationViewController()
-               present(vc, animated: true)
-               UserSessionManager.shared.deleteSession()
-           }
-       }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let sessionDate = UserSessionManager.shared.getSession(),
+           sessionDate > Date() {
+            let vc = InfoViewController()
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true)
+            print("active")
+            self.viewDidLoad()
+        } else {
+            let vc = UserAuthorizationViewController()
+            vc.modalPresentationStyle = .overFullScreen
+            present(vc, animated: true)
+            print("notactive")
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.viewDidLoad()
+    }
 }

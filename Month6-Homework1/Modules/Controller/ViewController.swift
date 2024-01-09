@@ -9,6 +9,8 @@ import UIKit
 
 class UserAuthorizationViewController: UIViewController {
     
+    private let vc = InfoViewController()
+    
     private let nameTf: UITextField = {
         let view = UITextField()
         view.placeholder = "Name"
@@ -79,9 +81,10 @@ class UserAuthorizationViewController: UIViewController {
     private func setUpConstraintsForSurNameTf() {
         view.addSubview(surNameTf)
         NSLayoutConstraint.activate([
-            surNameTf.topAnchor.constraint(equalTo: nameTf.bottomAnchor,
-                                           constant: 50
-                                          ),
+            surNameTf.topAnchor.constraint(
+                equalTo: nameTf.bottomAnchor,
+                constant: 50
+            ),
             surNameTf.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             surNameTf.widthAnchor.constraint(equalToConstant: 200),
             surNameTf.heightAnchor.constraint(equalToConstant: 40)
@@ -91,9 +94,10 @@ class UserAuthorizationViewController: UIViewController {
     private func setUpConstraintsForPhoneNumberTf() {
         view.addSubview(phoneNumTf)
         NSLayoutConstraint.activate([
-            phoneNumTf.topAnchor.constraint(equalTo: surNameTf.bottomAnchor,
-                                            constant: 50
-                                           ),
+            phoneNumTf.topAnchor.constraint(
+                equalTo: surNameTf.bottomAnchor,
+                constant: 50
+            ),
             phoneNumTf.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             phoneNumTf.widthAnchor.constraint(equalToConstant: 200),
             phoneNumTf.heightAnchor.constraint(equalToConstant: 40)
@@ -110,35 +114,39 @@ class UserAuthorizationViewController: UIViewController {
             continueBtn.widthAnchor.constraint(equalToConstant: 200),
             continueBtn.heightAnchor.constraint(equalToConstant: 40)
         ])
-        continueBtn.addTarget(self, action: #selector(signInBtnTapped),
-                              for: .touchUpInside
+        continueBtn.addTarget(
+            self,
+            action: #selector(signInBtnTapped),
+            for: .touchUpInside
         )
-    }
-    
-    @objc
-    private func signInBtnTapped() {
-        if validated() {
-            let person = PersonStruct(name: nameTf.text,
-                                      surname: surNameTf.text ?? "",
-                                      phoneNum: phoneNumTf.text ?? "")
-            let vc = InfoViewController()
-            vc.person = person
-            navigationController?.pushViewController(vc, animated: true)
-            UserSessionManager.shared.saveUserSession()
-        }
     }
     
     private func validated() -> Bool {
         guard let name = nameTf.text,
               let surname = surNameTf.text,
               !name.isEmpty,
-              !surname.isEmpty
+              !surname.isEmpty,
+              name.count >= 5,
+              surname.count >= 8
         else {
-            continueBtn.isEnabled = false
             return false
         }
-        continueBtn.isEnabled = true
         return true
+    }
+    
+    @objc
+    private func signInBtnTapped() {
+        if validated() {
+            UserSessionManager.shared.saveUserSession(
+                PersonStruct(
+                    name: nameTf.text!,
+                    surname: surNameTf.text!,
+                    phoneNum: phoneNumTf.text!
+                )
+            )
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
+        }
     }
 }
 

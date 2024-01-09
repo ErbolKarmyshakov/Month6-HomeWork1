@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct PersonStruct {
-    var name: String?
+struct PersonStruct: Codable {
+    var name: String
     var surname: String
     var phoneNum: String
 }

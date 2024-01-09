@@ -64,10 +64,10 @@
 		63FA69962B471EED00FC9DEE /* Month6-Homework1 */ = {
 			isa = PBXGroup;
 			children = (
+				63FA69AB2B471F1800FC9DEE /* App */,
 				63FA69AE2B471F5000FC9DEE /* Resources */,
 				63FA69AD2B471F4400FC9DEE /* Modules */,
 				63FA69AC2B471F3900FC9DEE /* Model */,
-				63FA69AB2B471F1800FC9DEE /* App */,
 				63FA69A52B471EEF00FC9DEE /* Info.plist */,
 			);
 			path = "Month6-Homework1";
